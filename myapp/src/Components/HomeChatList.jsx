@@ -20,10 +20,10 @@ function HomeChatList() {
 
   }
   return (
-    <div className=' ml-5'>
+    <div className=' ml-5 mt-12'>
       {
         userlist.map((obj) =>
-          <div className="flex items-center gap-3 mt-8 cursor-pointer" key={obj._id} onClick={() => { userHandler(obj._id) }}>
+          <div className="flex items-center gap-3 mt-11 cursor-pointer" key={obj._id} onClick={() => { userHandler(obj._id) }}>
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img

@@ -47,11 +47,11 @@ function UserHome() {
                             </svg>
                         </div>
                     </div>
-                    <div className="form-control px-5">
+                    <div className="form-control px-5 mt-5">
                         <input
                             type="text"
                             placeholder="Search"
-                            className="input input-bordered w-[22rem] mt-4 border-green-500 md:w-auto"
+                            className="input input-bordered w-[23rem] mt-4 border-green-500 md:w-auto"
                         />
                     </div>
                     <HomeChatList />

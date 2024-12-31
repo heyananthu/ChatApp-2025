@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import Lottie from "lottie-react";
 // import Chaticon from '../assets/chaticon.json'
+import chaticon from '../assets/chaticon.jpeg'
 import api from '../API/RenderAPI'
 function Login() {
     const navigate = useNavigate()
@@ -27,9 +28,10 @@ function Login() {
 
     return (
         <div>
-            <div className='w-[18rem] mt-[5rem] ml-11'>
+            <div className='w-[18rem] mt-[12rem] ml-16'>
                 {/* <Lottie animationData={Chaticon} className='w-[9rem] ml-16' /> */}
-                <label className="input input-bordered flex items-center gap-2 mt-5">
+                <img  src={chaticon} className='w-[10rem] rounded-full ml-14'/>
+                <label className="input input-bordered flex items-center gap-2 mt-10">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -42,7 +44,7 @@ function Login() {
                     </svg>
                     <input type="text" className="grow" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                 </label>
-                <label className="input input-bordered flex items-center gap-2 mt-7">
+                <label className="input input-bordered flex items-center gap-2 mt-10">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -56,7 +58,7 @@ function Login() {
                     <input type="password" className="grow" placeholder='Password' value={password} onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <button className="btn btn-outline w-32  btn-primary ml-20 mt-10" onClick={loginHandler}>Login</button>
-                <p className='mt-7'>Don't have an account ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/') }} >Login</span></p>
+                <p className='mt-14'>Don't have an account ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/') }} >Login</span></p>
             </div>
         </div>
     )

@@ -49,7 +49,7 @@ function Register() {
 
     return (
         <div>
-            <div className='w-[18rem] mt-[7rem] ml-11'>
+            <div className='w-[18rem] mt-[12rem] ml-16'>
                 <div className="avatar ml-24 cursor-pointer" onClick={handleAvatarClick}>
                     <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
                         {profilePic ? (
@@ -67,7 +67,7 @@ function Register() {
                     style={{ display: 'none' }}
                     onChange={handleFileChange}
                 />
-                <label className="input input-bordered flex items-center gap-2 mt-5">
+                <label className="input input-bordered flex items-center gap-2 mt-12">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -78,7 +78,7 @@ function Register() {
                     </svg>
                     <input type="text" className="grow" placeholder="Username" value={name} onChange={(e) => { setName(e.target.value) }} />
                 </label>
-                <label className="input input-bordered flex items-center gap-2 mt-5">
+                <label className="input input-bordered flex items-center gap-2 mt-8">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -92,7 +92,7 @@ function Register() {
                     <input type="text" className="grow" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                 </label>
 
-                <label className="input input-bordered flex items-center gap-2 mt-5">
+                <label className="input input-bordered flex items-center gap-2 mt-8">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -107,8 +107,8 @@ function Register() {
                 </label>
 
 
-                <button className="btn btn-outline btn-accent ml-24 mt-5" onClick={regHandler}>Register</button>
-                <p className='mt-7'>Already have accound ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/login') }} >Login</span></p>
+                <button className="btn btn-outline btn-accent ml-24 mt-8" onClick={regHandler}>Register</button>
+                <p className='mt-12'>Already have accound ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/login') }} >Login</span></p>
             </div>
         </div>
     )

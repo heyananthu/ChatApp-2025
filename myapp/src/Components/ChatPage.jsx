@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaArrowCircleLeft } from 'react-icons/fa';
 import { IoSendSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import api from '../API/RenderAPI'
 import axios from 'axios';
 
 function ChatPage() {
@@ -16,7 +17,7 @@ function ChatPage() {
 
     // Fetch Other User's Details
     useEffect(() => {
-        axios
+        api
             .get(`http://localhost:5000/getotheruser/${otheruserid}`)
             .then((res) => setOtherUser(res.data))
             .catch((err) => console.error('Failed to fetch other user:', err));
@@ -24,7 +25,7 @@ function ChatPage() {
 
     // Fetch Sender (Current User) Details
     useEffect(() => {
-        axios
+        api
             .get(`http://localhost:5000/getsender/${senderId}`)
             .then((res) => setUser(res.data))
             .catch((err) => console.error('Failed to fetch sender:', err));
@@ -33,7 +34,7 @@ function ChatPage() {
     // Fetch Chat Messages
     const fetchMessages = async () => {
         try {
-            const response = await axios.post(
+            const response = await api.post(
                 `http://localhost:5000/getmessage/${senderId}/${otheruserid}`
             );
             setChatMessages(response.data);
@@ -61,7 +62,7 @@ function ChatPage() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/messages', {
+            const response = await api.post('http://localhost:5000/messages', {
                 senderid: senderId,
                 receiverid: otheruserid,
                 message,

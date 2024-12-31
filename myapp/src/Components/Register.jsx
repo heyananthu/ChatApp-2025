@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
+import api from '../API/RenderAPI'
 function Register() {
     const navigate = useNavigate()
     const [name, setName] = useState('')
@@ -19,7 +20,7 @@ function Register() {
         formData.append('password', password)
         formData.append('profilePic', profilePic)
 
-        axios.post("http://localhost:5000/userregistration", formData, {
+        api.post("http://localhost:5000/userregistration", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }

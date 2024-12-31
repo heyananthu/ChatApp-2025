@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Lottie from "lottie-react";
 import Chaticon from '../assets/chaticon.json'
+import api from '../API/RenderAPI'
 function Login() {
     const navigate = useNavigate()
 
@@ -10,7 +11,7 @@ function Login() {
     const [password, setPassword] = useState('')
 
     const loginHandler = () => {
-        axios.post("http://localhost:5000/userlogin", {
+        api.post("http://localhost:5000/userlogin", {
             email, password
         }).then((res) => {
             if (res.status == 200) {

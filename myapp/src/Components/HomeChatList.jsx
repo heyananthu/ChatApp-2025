@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import api from '../API/RenderAPI'
 function HomeChatList() {
   const navigate = useNavigate()
   const [userlist, setUserList] = useState([])
@@ -8,7 +9,7 @@ function HomeChatList() {
   const senderId = localStorage.getItem("userId")
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/userlist/${senderId}`)
+    api.get(`http://localhost:5000/userlist/${senderId}`)
       .then((res) => {
         setUserList(res.data)
       })

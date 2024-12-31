@@ -11,6 +11,11 @@ const db = require("./dbconnection");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cors({
+    origin: ['https://chatapp-2025-1-frondend.onrender.com', 'http://localhost:3000'],  // Allow your frontend URLs
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/", route);
 

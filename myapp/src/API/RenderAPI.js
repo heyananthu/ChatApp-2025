@@ -10,6 +10,8 @@ import axios from "axios";
 //     : "http://localhost:5000", // Development URL
 // });
 
-const API = axios.create({ "https://chatapp-2025.onrender.com" });
+const API = axios.create({
+  baseURL: "https://chatapp-2025.onrender.com", // Production URL
+});
 
 export default API;

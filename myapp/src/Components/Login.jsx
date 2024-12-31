@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import Lottie from "lottie-react";
-import Chaticon from '../assets/chaticon.json'
+// import Lottie from "lottie-react";
+// import Chaticon from '../assets/chaticon.json'
 import api from '../API/RenderAPI'
 function Login() {
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ function Login() {
     return (
         <div>
             <div className='w-[18rem] mt-[5rem] ml-11'>
-                <Lottie animationData={Chaticon} className='w-[9rem] ml-16' />
+                {/* <Lottie animationData={Chaticon} className='w-[9rem] ml-16' /> */}
                 <label className="input input-bordered flex items-center gap-2 mt-5">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

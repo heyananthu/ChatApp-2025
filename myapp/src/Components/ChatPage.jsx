@@ -3,7 +3,7 @@ import { FaArrowCircleLeft } from 'react-icons/fa';
 import { IoSendSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import api from '../API/RenderAPI'
-import axios from 'axios';
+// import axios from 'axios';
 
 function ChatPage() {
     const navigate = useNavigate();

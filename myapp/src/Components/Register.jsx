@@ -49,7 +49,7 @@ function Register() {
 
     return (
         <div>
-            <div className='w-[18rem] mt-[12rem] ml-16'>
+            <div className='w-[18rem] mt-[10rem] ml-16'>
                 <div className="avatar ml-24 cursor-pointer" onClick={handleAvatarClick}>
                     <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
                         {profilePic ? (

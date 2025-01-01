@@ -20,7 +20,7 @@ function Register() {
         formData.append('password', password)
         formData.append('profilePic', profilePic)
 
-        api.post("http://localhost:5000/userregistration", formData, {
+        api.post("/userregistration", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }

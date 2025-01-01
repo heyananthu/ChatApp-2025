@@ -18,7 +18,7 @@ function ChatPage() {
     // Fetch Other User's Details
     useEffect(() => {
         api
-            .get(`http://localhost:5000/getotheruser/${otheruserid}`)
+            .get(`/getotheruser/${otheruserid}`)
             .then((res) => setOtherUser(res.data))
             .catch((err) => console.error('Failed to fetch other user:', err));
     }, [otheruserid]);
@@ -26,7 +26,7 @@ function ChatPage() {
     // Fetch Sender (Current User) Details
     useEffect(() => {
         api
-            .get(`http://localhost:5000/getsender/${senderId}`)
+            .get(`/getsender/${senderId}`)
             .then((res) => setUser(res.data))
             .catch((err) => console.error('Failed to fetch sender:', err));
     }, [senderId]);
@@ -35,7 +35,7 @@ function ChatPage() {
     const fetchMessages = async () => {
         try {
             const response = await api.post(
-                `http://localhost:5000/getmessage/${senderId}/${otheruserid}`
+                `/getmessage/${senderId}/${otheruserid}`
             );
             setChatMessages(response.data);
 
@@ -62,7 +62,7 @@ function ChatPage() {
         }
 
         try {
-            const response = await api.post('http://localhost:5000/messages', {
+            const response = await api.post('/messages', {
                 senderid: senderId,
                 receiverid: otheruserid,
                 message,

@@ -12,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState('')
 
     const loginHandler = () => {
-        api.post("http://localhost:5000/userlogin", {
+        api.post("/userlogin", {
             email, password
         }).then((res) => {
             if (res.status == 200) {

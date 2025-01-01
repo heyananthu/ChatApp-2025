@@ -9,7 +9,7 @@ function HomeChatList() {
   const senderId = localStorage.getItem("userId")
 
   useEffect(() => {
-    api.get(`http://localhost:5000/userlist/${senderId}`)
+    api.get(`/userlist/${senderId}`)
       .then((res) => {
         setUserList(res.data)
       })

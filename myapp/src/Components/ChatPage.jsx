@@ -95,7 +95,7 @@ function ChatPage() {
             </nav>
 
             {/* Chat Messages */}
-            <div className="chat-container p-4 overflow-y-auto h-[calc(100vh-120px)]">
+            <div className="chat-container py-8 overflow-y-auto h-[calc(100vh-120px)]">
                 {chatMessages.map((msg, index) => (
                     <div
                         key={index}
@@ -105,8 +105,8 @@ function ChatPage() {
                             <div className="w-10 rounded-full">
                                 <img
                                     src={`${api.defaults.baseURL}/uploads/${msg.senderid === senderId
-                                            ? user.profilePic || 'defaultProfilePic.jpg'
-                                            : otherUser.profilePic || 'defaultProfilePic.jpg'
+                                        ? user.profilePic || 'defaultProfilePic.jpg'
+                                        : otherUser.profilePic || 'defaultProfilePic.jpg'
                                         }`}
                                     alt={msg.senderid === senderId ? 'Sender' : 'Receiver'}
                                 />

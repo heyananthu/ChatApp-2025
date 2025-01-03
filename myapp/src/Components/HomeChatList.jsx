@@ -20,7 +20,7 @@ function HomeChatList() {
 
   }
   return (
-    <div className=' ml-5 mt-12'>
+    <div className=' ml-5 mt-12 pb-6'>
       {
         userlist.map((obj) =>
           <div className="flex items-center gap-3 mt-11 cursor-pointer" key={obj._id} onClick={() => { userHandler(obj._id) }}>

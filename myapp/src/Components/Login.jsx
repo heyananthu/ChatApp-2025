@@ -55,7 +55,7 @@ function Login() {
 
     return (
         <div>
-            <div className="w-[18rem] mt-[12rem] ml-16">
+            <div className="w-[18rem] mt-[12rem] ml-16 md:mt-[4rem] md:ml-[33rem]">
                 <img src={chaticon} alt="Chat Icon" className="w-[10rem] ml-14" />
                 <label className="input input-bordered flex items-center gap-2 mt-10">
                     <svg
@@ -97,7 +97,7 @@ function Login() {
                     />
                 </label>
                 <button
-                    className="btn btn-outline w-32 btn-primary ml-20 mt-10"
+                    className="btn btn-outline w-32 btn-success ml-20 mt-10"
                     onClick={loginHandler}
                 >
                     Login

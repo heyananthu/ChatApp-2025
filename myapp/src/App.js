@@ -5,6 +5,7 @@ import Register from './Components/Register';
 import Login from './Components/Login';
 import UserHome from './Components/UserHome';
 import ChatPage from './Components/ChatPage';
+import Userprofile from './Components/Userprofile'
 function App() {
   return (
     <BrowserRouter>
@@ -12,8 +13,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/home' element={<UserHome/>}/>
-          <Route path='/chat' element={<ChatPage/>}/>
+          <Route path='/home' element={<UserHome />} />
+          <Route path='/chat' element={<ChatPage />} />
+          <Route path='/profile' element={<Userprofile />} />
 
         </Routes>
       </div>

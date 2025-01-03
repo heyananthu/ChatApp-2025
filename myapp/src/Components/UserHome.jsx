@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeChatList from './HomeChatList';
 import { motion } from "motion/react"
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 function UserHome() {
+    const user = localStorage.getItem("userId")
+    const navigate = useNavigate()
     const [menuVisible, setMenuVisible] = useState(false);
-
+    const logoutHandler = () => {
+        localStorage.removeItem("userId")
+        navigate('/login')
+    }
+    useEffect(() => {
+        if (!user) {
+            alert("Login first")
+            navigate('/login')
+        }
+    })
     return (
-        <div>
+        <div className=''>
             {menuVisible ? (
                 <div className="bg-slate-600 h-screen w-full flex items-center justify-center relative" >
                     <svg
@@ -19,13 +32,10 @@ function UserHome() {
                         <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
                     </svg>
                     <ul className="text-white text-center space-y-6 text-3xl font-sans font-black">
-                        <motion.li className="hover:border hover:border-green-500 py-2 px-4" animate={{
-                            scale: 2,
-                            transition: { duration: 2 }
-                        }}>Profile</motion.li>
-                        <li className="hover:border hover:border-green-500 py-2 px-4">New Group</li>
-                        <li className="hover:border hover:border-green-500 py-2 px-4">Settings</li>
-                        <li className="hover:border hover:border-green-500 py-2 px-4">Logout</li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4" ><Link to="/profile"> Profile </Link></li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">New Group</li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">Settings</li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4 cursor-pointer" onClick={logoutHandler}>Logout</li>
                     </ul>
                 </div>
             ) : (

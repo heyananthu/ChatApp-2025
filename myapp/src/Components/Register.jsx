@@ -22,7 +22,7 @@ function Register() {
         formData.append('password', password)
         formData.append('profilePic', profilePic)
 
-<<<<<<< HEAD
+
         if (!name || !email || !password) {
             toast.warn('Please fill in all fields', {
                 position: "bottom-center",
@@ -52,8 +52,6 @@ function Register() {
             return;
         }
 
-=======
->>>>>>> a71ca9629d0d69df6865f4a697c92dfe9b31e4fc
         api.post("/userregistration", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',

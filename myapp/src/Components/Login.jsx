@@ -13,6 +13,7 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const loginHandler = () => {
+<<<<<<< HEAD
         if (!email || !password) {
             toast.warn('Please fill in all fields', {
                 position: "bottom-center",
@@ -76,6 +77,21 @@ function Login() {
             });
     };
 
+=======
+        api.post("/userlogin", {
+            email, password
+        }).then((res) => {
+            if (res.status == 200) {
+                console.log("Userid :", res.data.userid)
+                alert("login Success")
+                localStorage.setItem("userId", res.data.userid)
+                navigate('/home')
+            } else {
+                alert("Login failed")
+            }
+        })
+    }
+>>>>>>> a71ca9629d0d69df6865f4a697c92dfe9b31e4fc
 
     return (
         <div>

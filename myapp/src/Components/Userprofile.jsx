@@ -18,7 +18,7 @@ function Userprofile() {
                 <div class="max-w-xs">
                     <div class="bg-slate-700 shadow-xl rounded-lg py-3">
                         <div class="photo-wrapper p-2">
-                            <img class="w-32 h-32 rounded-full mx-auto" src={`${api.defaults.baseURL}/uploads/${userprofile.profilePic}`} alt="John Doe" />
+                            <img class="w-32 h-32 rounded-full items-center  mx-auto" src={`${api.defaults.baseURL}/uploads/${userprofile.profilePic}`} alt="John Doe" />
                         </div>
                         <div class="p-2">
                             <h3 class="text-center text-xl text-white font-medium leading-8">{userprofile.name}</h3>

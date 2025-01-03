@@ -5,32 +5,83 @@ import { useNavigate } from 'react-router-dom'
 // import Chaticon from '../assets/chaticon.json'
 import chaticon from '../assets/chaticon.jpeg'
 import api from '../API/RenderAPI'
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
 function Login() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
     const loginHandler = () => {
-        api.post("http://localhost:5000/userlogin", {
-            email, password
-        }).then((res) => {
-            if (res.status == 200) {
-                console.log("Userid :", res.data.userid)
-                alert("login Success")
-                localStorage.setItem("userId", res.data.userid)
-                navigate('/home')
-            } else {
-                alert("Login failed")
-            }
-        })
-    }
+        if (!email || !password) {
+            toast.warn('Please fill in all fields', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return;
+        }
+
+        api.post("/userlogin", { email, password })
+            .then((res) => {
+                if (res.status === 200) {
+                    toast.success('Login Success', {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                    });
+                    localStorage.setItem("userId", res.data.userid);
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 3000);
+                } else if (res.status === 404) {
+                    toast.warn('Login Failed: Invalid credentials', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                    });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                toast.error('An error occurred. Please try again.', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            });
+    };
+
 
     return (
         <div>
             <div className='w-[18rem] mt-[12rem] ml-16'>
                 {/* <Lottie animationData={Chaticon} className='w-[9rem] ml-16' /> */}
-                <img  src={chaticon} className='w-[10rem] rounded-full ml-14'/>
+                <img src={chaticon} className='w-[10rem]  ml-14' />
                 <label className="input input-bordered flex items-center gap-2 mt-10">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +109,21 @@ function Login() {
                     <input type="password" className="grow" placeholder='Password' value={password} onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <button className="btn btn-outline w-32  btn-primary ml-20 mt-10" onClick={loginHandler}>Login</button>
-                <p className='mt-14'>Don't have an account ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/') }} >Login</span></p>
+                <p className='mt-14'>Don't have an account ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/') }} >Register</span></p>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </div>
     )
 }

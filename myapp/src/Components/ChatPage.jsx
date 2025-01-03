@@ -2,8 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaArrowCircleLeft } from 'react-icons/fa';
 import { IoSendSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import api from '../API/RenderAPI'
-// import axios from 'axios';
+import api from '../API/RenderAPI';
 
 function ChatPage() {
     const navigate = useNavigate();
@@ -17,16 +16,14 @@ function ChatPage() {
 
     // Fetch Other User's Details
     useEffect(() => {
-        api
-            .get(`http://localhost:5000/getotheruser/${otheruserid}`)
+        api.get(`/getotheruser/${otheruserid}`)
             .then((res) => setOtherUser(res.data))
             .catch((err) => console.error('Failed to fetch other user:', err));
     }, [otheruserid]);
 
     // Fetch Sender (Current User) Details
     useEffect(() => {
-        api
-            .get(`http://localhost:5000/getsender/${senderId}`)
+        api.get(`/getsender/${senderId}`)
             .then((res) => setUser(res.data))
             .catch((err) => console.error('Failed to fetch sender:', err));
     }, [senderId]);
@@ -34,12 +31,8 @@ function ChatPage() {
     // Fetch Chat Messages
     const fetchMessages = async () => {
         try {
-            const response = await api.post(
-                `http://localhost:5000/getmessage/${senderId}/${otheruserid}`
-            );
+            const response = await api.post(`/getmessage/${senderId}/${otheruserid}`);
             setChatMessages(response.data);
-
-
         } catch (err) {
             console.error('Failed to fetch messages:', err);
         }
@@ -62,7 +55,7 @@ function ChatPage() {
         }
 
         try {
-            const response = await api.post('http://localhost:5000/messages', {
+            const response = await api.post('/messages', {
                 senderid: senderId,
                 receiverid: otheruserid,
                 message,
@@ -93,8 +86,8 @@ function ChatPage() {
                         onClick={() => navigate('/home')}
                     />
                     <img
-                        className="w-12 rounded-full"
-                        src={`http://localhost:5000/uploads/${otherUser.profilePic || 'defaultProfilePic.jpg'}`}
+                        className="w-12 h-12 rounded-full"
+                        src={`${api.defaults.baseURL}/uploads/${otherUser.profilePic || 'defaultProfilePic.jpg'}`}
                         alt={otherUser.name || 'Receiver'}
                     />
                     <h1 className="text-2xl mt-2 font-bold">{otherUser.name}</h1>
@@ -111,7 +104,7 @@ function ChatPage() {
                         <div className="chat-image avatar">
                             <div className="w-10 rounded-full">
                                 <img
-                                    src={`http://localhost:5000/uploads/${msg.senderid === senderId
+                                    src={`${api.defaults.baseURL}/uploads/${msg.senderid === senderId
                                             ? user.profilePic || 'defaultProfilePic.jpg'
                                             : otherUser.profilePic || 'defaultProfilePic.jpg'
                                         }`}

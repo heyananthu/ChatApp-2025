@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 // import axios from 'axios'
 import api from '../API/RenderAPI'
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
 function Register() {
     const navigate = useNavigate()
     const [name, setName] = useState('')
@@ -20,14 +22,55 @@ function Register() {
         formData.append('password', password)
         formData.append('profilePic', profilePic)
 
-        api.post("http://localhost:5000/userregistration", formData, {
+        if (!name || !email || !password) {
+            toast.warn('Please fill in all fields', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return;
+        }
+        if (!profilePic) {
+            toast.warn('Please upload a profile picture', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return;
+        }
+
+        api.post("/userregistration", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
         }).then((res) => {
             if (res.status === 200) {
-                alert("Registered")
-                navigate('/login')
+                toast.success('Registration Success', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+                setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
             } else if (res.status === 400) {
                 alert("User Already Exist")
             } else {
@@ -51,11 +94,11 @@ function Register() {
         <div>
             <div className='w-[18rem] mt-[10rem] ml-16'>
                 <div className="avatar ml-24 cursor-pointer" onClick={handleAvatarClick}>
-                    <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
+                    <div className="ring-success ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
                         {profilePic ? (
                             <img src={URL.createObjectURL(profilePic)} alt="Profile Preview" />
                         ) : (
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="Default Avatar" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQxvAAVEqz-nu3Q-h7vTdE1hgVBHiGdRdHEUaYA8Bb4_nb734HfeoaUC8igCydUqX3JuM&usqp=CAU" alt="Default Avatar" />
                         )}
                     </div>
                 </div>
@@ -110,6 +153,19 @@ function Register() {
                 <button className="btn btn-outline btn-accent ml-24 mt-8" onClick={regHandler}>Register</button>
                 <p className='mt-12'>Already have accound ? <span className='text-green-400 cursor-pointer' onClick={() => { navigate('/login') }} >Login</span></p>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </div>
     )
 }

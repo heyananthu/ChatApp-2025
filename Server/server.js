@@ -10,10 +10,7 @@ const db = require("./dbconnection");
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-<<<<<<< HEAD
-=======
 // app.use(cors());
->>>>>>> a71ca9629d0d69df6865f4a697c92dfe9b31e4fc
 app.use(cors({
     origin: ['https://chatapp-2025-1-frondend.onrender.com', 'http://localhost:3000'],  // Allow your frontend URLs
     methods: ['GET', 'POST'],

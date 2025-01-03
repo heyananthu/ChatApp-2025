@@ -94,7 +94,7 @@ function ChatPage() {
                     />
                     <img
                         className="w-12 rounded-full"
-                        src={`http://localhost:5000/uploads/${otherUser.profilePic || 'defaultProfilePic.jpg'}`}
+                        src={`${api.defaults.baseURL}/uploads/${obj.profilePic || 'defaultProfilePic.jpg'}`}
                         alt={otherUser.name || 'Receiver'}
                     />
                     <h1 className="text-2xl mt-2 font-bold">{otherUser.name}</h1>
@@ -111,7 +111,7 @@ function ChatPage() {
                         <div className="chat-image avatar">
                             <div className="w-10 rounded-full">
                                 <img
-                                    src={`http://localhost:5000/uploads/${msg.senderid === senderId
+                                    src={`${api.defaults.baseURL}/uploads/${msg.senderid === senderId
                                             ? user.profilePic || 'defaultProfilePic.jpg'
                                             : otherUser.profilePic || 'defaultProfilePic.jpg'
                                         }`}

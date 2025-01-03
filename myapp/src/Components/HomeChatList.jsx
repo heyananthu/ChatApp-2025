@@ -27,7 +27,7 @@ function HomeChatList() {
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img
-                  src={`http://localhost:5000/uploads/${obj.profilePic}`} alt="Avatar Tailwind CSS Component" />
+                  src={`${api.defaults.baseURL}/uploads/${obj.profilePic || 'defaultProfilePic.jpg'}`} alt="Avatar Tailwind CSS Component" />
               </div>
             </div>
             <div>

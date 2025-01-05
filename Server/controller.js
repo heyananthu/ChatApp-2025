@@ -73,7 +73,7 @@ const otherUser = async (req, res) => {
 
 }
 const getSender = async (req, res) => {
-    const {  senderId } = req.params
+    const { senderId } = req.params
     const findUser = await userSchema.findOne({ _id: senderId })
     if (findUser) {
         res.json(findUser)
@@ -118,5 +118,21 @@ const getMessage = async (req, res) => {
     }
 };
 
+const userName = async (req, res) => {
+    // const { senderId } = req.params;
+    try {
+        const user = await userSchema.find().select("name");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json(user);
+        console.log("Name is:", user);
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
 
-module.exports = { addUser, userLogin, userList, otherUser, messages, getMessage ,getSender }
+
+
+module.exports = { addUser, userLogin, userList, otherUser, messages, getMessage, getSender ,userName}

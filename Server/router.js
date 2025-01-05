@@ -43,7 +43,7 @@ router.post('/userlogin', userController.userLogin);
 router.get('/userlist/:senderId', userController.userList)
 router.get('/getotheruser/:otheruserid', userController.otherUser)
 router.get('/getsender/:senderId', userController.getSender)
-
+router.get('/username/:senderId', userController.userName)
 router.post('/messages', userController.messages)
 router.post('/getMessage/:senderId/:otheruserid', userController.getMessage)
 

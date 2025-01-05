@@ -17,21 +17,20 @@ function HomeChatList() {
   const userHandler = (id) => {
     localStorage.setItem("otheruserid", id)
     navigate('/chat')
-
   }
   return (
     <div className=' ml-5 mt-12 pb-6'>
       {
         userlist.map((obj) =>
           <div className="flex items-center gap-3 mt-11 cursor-pointer" key={obj._id} onClick={() => { userHandler(obj._id) }}>
-            <div className="avatar">
-              <div className="mask mask-squircle h-12 w-12">
-                <img
+            <div className="avatar ">
+              <div className="mask mask-squircle h-12 w-12 ">
+                <img className=''
                   src={`${api.defaults.baseURL}/uploads/${obj.profilePic || 'defaultProfilePic.jpg'}`} alt="Avatar Tailwind CSS Component" />
               </div>
             </div>
             <div>
-              <div className="font-bold">{obj.name}</div>
+              <div className="font-bold sm:text-3xl">{obj.name}</div>
             </div>
           </div>
         )

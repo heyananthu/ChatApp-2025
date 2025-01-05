@@ -1,26 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import HomeChatList from './HomeChatList';
-import { motion } from "motion/react"
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../API/RenderAPI';
+
 function UserHome() {
-    const user = localStorage.getItem("userId")
-    const navigate = useNavigate()
+    const senderId = localStorage.getItem('userId');
+    const [mainUser, setUser] = useState([]); // Initialize as an empty array
+    const [input, setInput] = useState('');
+    const [filter, setFilter] = useState([]);
+    const navigate = useNavigate();
     const [menuVisible, setMenuVisible] = useState(false);
+
     const logoutHandler = () => {
-        localStorage.removeItem("userId")
-        navigate('/login')
-    }
+        localStorage.removeItem('userId');
+        navigate('/login');
+    };
+
     useEffect(() => {
-        if (!user) {
-            alert("Login first")
-            navigate('/login')
+        if (!senderId) {
+            alert('Login first');
+            navigate('/login');
+            return; // Exit early if no senderId
         }
-    })
+
+        const fetchData = async () => {
+            try {
+                const res = await api.get(`/username/${senderId}`);
+                console.log('API Response:', res.data);
+                if (Array.isArray(res.data)) {
+                    setUser(res.data);
+                } else if (res.data.users) {
+                    setUser(res.data.users);
+                } else {
+                    setUser([]); // Fallback to an empty array
+                }
+            } catch (err) {
+                console.error('Failed to fetch sender:', err);
+                // Optionally show an error message to the user
+            }
+        };
+
+        fetchData();
+    }, [senderId, navigate]);
+
+    useEffect(() => {
+        if (!senderId) {
+            alert('Login first');
+            navigate('/login');
+        }
+    }, [senderId, navigate]);
+
+    const inputHandler = (e) => {
+        const currentValue = e.target.value;
+        setInput(currentValue);
+
+        if (currentValue) {
+            const filterItem = mainUser.filter((item) =>
+                item.name.toLowerCase().includes(currentValue.toLowerCase())
+            );
+            setFilter(filterItem);
+        } else {
+            setFilter([]);
+        }
+    };
+
     return (
-        <div className=''>
+        <div>
             {menuVisible ? (
-                <div className="bg-slate-600 h-screen w-full flex items-center justify-center relative" >
+                <div className="bg-slate-600 h-screen w-full flex items-center justify-center relative">
                     <svg
                         className="swap-on fill-current absolute top-5 left-5 cursor-pointer"
                         xmlns="http://www.w3.org/2000/svg"
@@ -32,10 +79,17 @@ function UserHome() {
                         <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
                     </svg>
                     <ul className="text-white text-center space-y-6 text-3xl font-sans font-black">
-                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4" ><Link to="/profile"> Profile </Link></li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">
+                            <Link to="/profile"> Profile </Link>
+                        </li>
                         <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">New Group</li>
                         <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">Settings</li>
-                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4 cursor-pointer" onClick={logoutHandler}>Logout</li>
+                        <li
+                            className="hover:border hover:border-green-500 rounded-lg py-2 px-4 cursor-pointer"
+                            onClick={logoutHandler}
+                        >
+                            Logout
+                        </li>
                     </ul>
                 </div>
             ) : (
@@ -45,6 +99,7 @@ function UserHome() {
                         <div
                             className="btn btn-circle swap swap-rotate cursor-pointer"
                             onClick={() => setMenuVisible(true)}
+                            aria-label="Open menu"
                         >
                             <svg
                                 className="swap-off fill-current"
@@ -61,8 +116,22 @@ function UserHome() {
                         <input
                             type="text"
                             placeholder="Search"
+                            value={input}
+                            onChange={inputHandler}
                             className="input input-bordered w-[23rem] mt-4 border-green-500 md:w-auto"
                         />
+                        {filter.length > 0 && (
+                            <ul className="bg-slate-600 text-white shadow-md rounded-md mt-2 p-2 w-full max-h-40 overflow-y-auto">
+                                {filter.map((item, index) => (
+                                    <li
+                                        key={index}
+                                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                                    >
+                                        {item.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                     <HomeChatList />
                 </>

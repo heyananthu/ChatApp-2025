@@ -3,13 +3,14 @@ import { FaArrowCircleLeft } from 'react-icons/fa';
 import { IoSendSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import api from '../API/RenderAPI';
+import Defaultimg from '../assets/default.jpg';
 
 function ChatPage() {
     const navigate = useNavigate();
-    const otheruserid = localStorage.getItem('otheruserid');
-    const senderId = localStorage.getItem('userId');
-    const [otherUser, setOtherUser] = useState('');
-    const [user, setUser] = useState('');
+    const otheruserid = localStorage.getItem('otheruserid') || '';
+    const senderId = localStorage.getItem('userId') || '';
+    const [otherUser, setOtherUser] = useState({});
+    const [user, setUser] = useState({});
     const [message, setMessage] = useState('');
     const [chatMessages, setChatMessages] = useState([]);
     const messageEndRef = useRef(null);
@@ -87,8 +88,12 @@ function ChatPage() {
                     />
                     <img
                         className="w-12 h-12 rounded-full"
-                        src={`${api.defaults.baseURL}/uploads/${otherUser.profilePic || 'defaultProfilePic.jpg'}`}
+                        src={`${api.defaults.baseURL}/uploads/${otherUser.profilePic || ''}`}
                         alt={otherUser.name || 'Receiver'}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = Defaultimg;
+                        }}
                     />
                     <h1 className="text-2xl mt-2 font-bold">{otherUser.name}</h1>
                 </div>
@@ -105,10 +110,14 @@ function ChatPage() {
                             <div className="w-10 rounded-full">
                                 <img
                                     src={`${api.defaults.baseURL}/uploads/${msg.senderid === senderId
-                                        ? user.profilePic || 'defaultProfilePic.jpg'
-                                        : otherUser.profilePic || 'defaultProfilePic.jpg'
+                                        ? user.profilePic || ''
+                                        : otherUser.profilePic || ''
                                         }`}
                                     alt={msg.senderid === senderId ? 'Sender' : 'Receiver'}
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = Defaultimg;
+                                    }}
                                 />
                             </div>
                         </div>

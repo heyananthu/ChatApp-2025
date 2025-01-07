@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../API/RenderAPI';
 
 function UserHome() {
-    const senderId = localStorage.getItem('userId');
+    const senderId = localStorage.getItem('userId') || '';
     const [mainUser, setUser] = useState([]); // Initialize as an empty array
     const [input, setInput] = useState('');
     const [filter, setFilter] = useState([]);
@@ -20,7 +20,7 @@ function UserHome() {
         if (!senderId) {
             alert('Login first');
             navigate('/login');
-            return; // Exit early if no senderId
+            return;
         }
 
         const fetchData = async () => {
@@ -32,22 +32,14 @@ function UserHome() {
                 } else if (res.data.users) {
                     setUser(res.data.users);
                 } else {
-                    setUser([]); // Fallback to an empty array
+                    setUser([]);
                 }
             } catch (err) {
                 console.error('Failed to fetch sender:', err);
-                // Optionally show an error message to the user
             }
         };
 
         fetchData();
-    }, [senderId, navigate]);
-
-    useEffect(() => {
-        if (!senderId) {
-            alert('Login first');
-            navigate('/login');
-        }
     }, [senderId, navigate]);
 
     const inputHandler = (e) => {
@@ -56,12 +48,17 @@ function UserHome() {
 
         if (currentValue) {
             const filterItem = mainUser.filter((item) =>
-                item.name.toLowerCase().includes(currentValue.toLowerCase())
+                item.name?.toLowerCase().includes(currentValue.toLowerCase())
             );
             setFilter(filterItem);
         } else {
             setFilter([]);
         }
+    };
+
+    const ClickHandler = (id) => {
+        localStorage.setItem('otheruserid', id);
+        navigate('/chat');
     };
 
     return (
@@ -80,10 +77,14 @@ function UserHome() {
                     </svg>
                     <ul className="text-white text-center space-y-6 text-3xl font-sans font-black">
                         <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">
-                            <Link to="/profile"> Profile </Link>
+                            <Link to="/profile">Profile</Link>
                         </li>
-                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">New Group</li>
-                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4">Settings</li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4 text-slate-500">
+                            New Group
+                        </li>
+                        <li className="hover:border hover:border-green-500 rounded-lg py-2 px-4 text-slate-500">
+                            Settings
+                        </li>
                         <li
                             className="hover:border hover:border-green-500 rounded-lg py-2 px-4 cursor-pointer"
                             onClick={logoutHandler}
@@ -122,10 +123,11 @@ function UserHome() {
                         />
                         {filter.length > 0 && (
                             <ul className="bg-slate-600 text-white shadow-md rounded-md mt-2 p-2 w-full max-h-40 overflow-y-auto">
-                                {filter.map((item, index) => (
+                                {filter.map((item) => (
                                     <li
-                                        key={index}
-                                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                                        key={item._id}
+                                        className="p-2 cursor-pointer"
+                                        onClick={() => ClickHandler(item._id)}
                                     >
                                         {item.name}
                                     </li>
